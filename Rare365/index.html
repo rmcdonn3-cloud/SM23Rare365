@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rare 365</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">Rare 365</p>
+          <h1>Rare 365 Symptom Tracker</h1>
+          <p class="subtitle">
+            Patient-first symptom tracking with external forms sent to care teams and school staff.
+          </p>
+        </div>
+        <div class="status-card">
+          <h2>Today at a Glance</h2>
+          <p id="todayColor">Status: Not logged</p>
+          <p id="todayTopSymptoms">Top symptoms: -</p>
+          <p id="baselineStatus" class="muted">Baseline: building</p>
+          <button id="quickLogBtn" class="primary">Log Today</button>
+        </div>
+      </header>
+
+      <section class="role-switch panel">
+        <div class="tab-row" id="roleTabs">
+          <button class="tab active" data-role="patient" type="button">Patient App</button>
+          <button class="tab" data-role="physician" type="button">Physician Form View</button>
+          <button class="tab" data-role="teacher" type="button">Teacher View</button>
+        </div>
+        <p id="permissionBanner" class="muted"></p>
+      </section>
+
+      <section id="patientPanel" class="role-panel active">
+        <div class="grid">
+          <article class="panel">
+            <h2>Patient Profile</h2>
+            <label>
+              Patient name
+              <input id="patientName" type="text" value="Alex Rivera" />
+            </label>
+            <label>
+              Condition profile
+              <select id="conditionSelect"></select>
+            </label>
+            <p id="conditionDescription" class="muted"></p>
+            <div id="symptomChips" class="chips"></div>
+            <label>
+              Current medications
+              <input id="medicationsInput" type="text" placeholder="e.g., Medication A, Medication B" />
+            </label>
+          </article>
+
+          <article class="panel">
+            <h2>Daily Log</h2>
+            <form id="dailyLogForm">
+              <label>
+                Log date
+                <input id="logDateInput" name="logDate" type="date" />
+              </label>
+              <div id="symptomSliders"></div>
+              <label>
+                School/work attendance
+                <select name="attendance">
+                  <option value="full">Full</option>
+                  <option value="partial">Partial</option>
+                  <option value="none">No attendance</option>
+                </select>
+              </label>
+              <fieldset class="med-checklist">
+                <legend>Medications taken today</legend>
+                <label><input type="checkbox" name="meds" value="Hydrocortisone 10 mg" /> Hydrocortisone 10 mg</label>
+                <label><input type="checkbox" name="meds" value="Fludrocortisone 0.1 mg" /> Fludrocortisone 0.1 mg</label>
+                <label><input type="checkbox" name="meds" value="Sodium chloride tablets 1 g" /> Sodium chloride tablets 1 g</label>
+                <label>
+                  <input type="checkbox" name="meds" value="Emergency hydrocortisone injection" />
+                  Emergency hydrocortisone injection
+                </label>
+              </fieldset>
+              <label>
+                Notes
+                <textarea name="notes" rows="2" placeholder="Any context for today"></textarea>
+              </label>
+              <button class="primary" type="submit">Save Daily Log</button>
+            </form>
+            <button id="flareBtn" class="danger" type="button">Emergency / Flare-up</button>
+          </article>
+
+          <article class="panel">
+            <h2>Send External Form</h2>
+            <p class="muted">Patient/caregiver sends a simple link to physician, teacher, or counselor.</p>
+            <label>
+              Recipient role
+              <select id="recipientRole">
+                <option value="Physician">Physician</option>
+                <option value="Teacher">Teacher</option>
+                <option value="Counselor">Counselor</option>
+              </select>
+            </label>
+            <div class="inline">
+              <input id="recipientEmail" type="email" value="provider@exampleclinic.org" />
+              <button id="sendExternalForm" type="button">Send Form Email</button>
+            </div>
+            <p id="emailStatus" class="muted">No outreach email sent yet.</p>
+          </article>
+        </div>
+
+        <article id="flareModePanel" class="panel hidden">
+          <h2>Flare Quick Log</h2>
+          <p class="muted">Tap all symptoms happening right now, then save.</p>
+          <div id="flareIcons" class="flare-icons"></div>
+          <label>
+            Quick note
+            <input id="flareNote" type="text" placeholder="Optional context (trigger, location, support needed)" />
+          </label>
+          <div class="actions">
+            <button id="saveFlareQuickLog" class="danger" type="button">Save Flare Event</button>
+            <button id="cancelFlareMode" type="button">Cancel</button>
+          </div>
+        </article>
+      </section>
+
+      <section id="physicianPanel" class="role-panel hidden">
+        <div class="grid two-up">
+          <article class="panel">
+            <h2>External Physician Form</h2>
+            <p class="muted">
+              This simulates the form opened from a patient email link. Submission writes into the patient calendar.
+            </p>
+            <form id="physicianForm">
+              <label>
+                Appointment date
+                <input name="appointmentDate" type="date" />
+              </label>
+              <label>
+                Clinical summary
+                <textarea name="summary" rows="2" placeholder="Provider notes"></textarea>
+              </label>
+              <label>
+                Care plan / next steps
+                <textarea name="plan" rows="2" placeholder="Medication changes, therapies, follow-up"></textarea>
+              </label>
+              <button type="submit">Submit Physician Form</button>
+            </form>
+          </article>
+          <article class="panel">
+            <h2>Permissions (Mock)</h2>
+            <p>Can submit form responses to patient timeline.</p>
+            <p>Cannot edit patient profile, medications list, or raw patient logs.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="teacherPanel" class="role-panel hidden">
+        <div class="grid two-up">
+          <article class="panel">
+            <h2>Teacher View (Read-only)</h2>
+            <p class="muted">School-facing summary with limited health details.</p>
+            <div id="teacherSummary"></div>
+          </article>
+          <article class="panel">
+            <h2>Permissions (Mock)</h2>
+            <p>Read-only weekly support view.</p>
+            <p>No diagnosis detail editing, no symptom-level medical notes, no medication changes.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel calendar-panel">
+        <div class="calendar-head">
+          <h2>Calendar View</h2>
+          <div class="legend">
+            <span class="dot stable"></span> Low / At Baseline
+            <span class="dot moderate"></span> Above Baseline
+            <span class="dot severe"></span> Significantly Above Baseline or Flare
+          </div>
+        </div>
+        <div id="calendar" class="calendar"></div>
+      </section>
+
+      <section class="grid">
+        <article class="panel">
+          <h2>Selected Day Details</h2>
+          <div id="dayDetails" class="details">
+            <p>Select a day to view entries.</p>
+          </div>
+        </article>
+        <article class="panel">
+          <h2>Physician Summary (Export Preview)</h2>
+          <div id="physicianSummary"></div>
+          <p class="footnote">
+            Not HIPAA-compliant and not connected to EHR in this prototype.
+          </p>
+        </article>
+        <article class="panel">
+          <h2>Data Source Mix</h2>
+          <p>Patient logs: symptoms, meds taken, flare-up events.</p>
+          <p>Physician form responses: appointment summaries and care plan notes.</p>
+          <p>Teacher sees weekly support summary only.</p>
+        </article>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>

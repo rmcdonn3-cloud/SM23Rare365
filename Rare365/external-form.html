@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rare360 External Form</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="panel">
+        <h1>Rare360 External Response Form</h1>
+        <p id="formContext" class="muted">Loading form context...</p>
+        <form id="externalForm">
+          <label>
+            Date
+            <input type="date" name="dateKey" required />
+          </label>
+          <label>
+            Summary
+            <textarea name="summary" rows="3" placeholder="Visit or support summary" required></textarea>
+          </label>
+          <label>
+            Plan / Next steps
+            <textarea name="plan" rows="3" placeholder="Care plan or school support recommendation"></textarea>
+          </label>
+          <label>
+            Severity
+            <select name="severity">
+              <option value="stable">Stable</option>
+              <option value="moderate" selected>Moderate</option>
+              <option value="severe">Severe</option>
+            </select>
+          </label>
+          <button type="submit" class="primary">Submit Response</button>
+        </form>
+        <p id="submitStatus" class="muted"></p>
+      </section>
+    </main>
+    <script src="external-form.js"></script>
+  </body>
+</html>

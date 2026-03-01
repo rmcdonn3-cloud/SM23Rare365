@@ -1,0 +1,27 @@
+{
+  "entries": [
+    {
+      "dateKey": "2026-02-26",
+      "source": "patient",
+      "label": "Daily log",
+      "severity": "stable",
+      "symptoms": {
+        "Fatigue": 2,
+        "Headache": 1
+      },
+      "notes": "Seed entry",
+      "sleep": 4,
+      "attendance": "full",
+      "medTaken": "Medication A"
+    },
+    {
+      "dateKey": "2026-02-27",
+      "source": "physician",
+      "label": "Appointment summary",
+      "severity": "moderate",
+      "notes": "Seed physician summary",
+      "plan": "Continue tracking symptoms daily."
+    }
+  ],
+  "forms": {}
+}
